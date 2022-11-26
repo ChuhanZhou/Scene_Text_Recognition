@@ -468,6 +468,9 @@ def get_points_of_box(center, box_shape, theta, padding=0, scaling=1):
     else:
         return [lt, rt, rb, lb]
 
+def get_length(point1, point2):
+    return math.sqrt(np.square(abs(point1[0] - point2[0])) + np.square(abs(point1[1] - point2[1])))
+
 def key_points_align (x,points):
     # input:
     # p[x,y]

@@ -60,10 +60,11 @@ def recognize_text(image):
                     box_points_calculate[n*4:(n+1)*4,:] = box_points_calculate[n*4:(n+1)*4,:]*box_points[n:n+1,:]
                     l_box_points_calculate[n*4:(n+1)*4,:] = l_box_points_calculate[n*4:(n+1)*4,:]*l_box_points
                 min_distance = np.min(np.sqrt(np.sum((box_points_calculate-l_box_points_calculate)**2,axis=1)))
+                min_distance = min(min_distance,process_data.get_length([x,y],[l_x,l_y]))
 
                 add = min(w, h) * cfg['wh_add']
                 l_add = min(l_h, l_w) * cfg['wh_add']
-                if min_distance <= (min(l_h, l_w) + l_add + min(h, w) + add) * 2:
+                if min_distance <= (min(l_h, l_w) + l_add + min(h, w) + add) * 2 /2:
                     part.append([xywhr,box_points, text])
                     is_new = False
                     break
