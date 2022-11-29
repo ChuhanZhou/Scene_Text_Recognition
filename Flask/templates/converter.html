@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image to text converter</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/converter.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</head>
+<body>
+   <div class="convertArea">
+        <p>Image to text converter</p>
+        <div class="upArea">
+            <div id="uploadArea">
+                <img src="" />
+                <!--<button id="uploadBtn" onclick="submitImg()">UPLOAD</button>-->
+            </div>
+            <form id="fileForm" action="" method='POST'>
+            <input type="file" id="file" name="file"/>
+            </form>
+        </div>
+
+       <div id="btnArea">
+             <button id="btn">SUBMIT</button>
+        </div>
+
+        <div class="textArea">
+            <textarea id="text"></textarea>
+            <div class="btnArea">
+                <button id="copyBtn">copy</button>
+                <button id="downloadBtn">download</button>
+            </div>
+
+        </div>
+    </div>
+
+<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="../static/converter.js"></script>
+</body>
+</html>
