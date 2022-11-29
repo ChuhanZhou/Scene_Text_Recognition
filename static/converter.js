@@ -47,6 +47,7 @@ $(document).ready(function() {
                     success: function (data) {
                         console.log("post successfully");
                         text.value = data;
+                        //显示文本检测结果 文件相对路径./out/r.png
                 },
                 error: function ()
                 {

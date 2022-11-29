@@ -7,6 +7,7 @@ from gevent import pywsgi
 import time
 from datetime import timedelta
 import numpy as np
+from algorithm_interface import recognize_text
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'bmp'])
 
@@ -21,6 +22,7 @@ result = {}
 
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
+    result = "[Wrong request]"
     if request.method == 'POST':
         f = request.files.get('file').filename
         print("f in python is "+ f)
@@ -38,10 +40,11 @@ def upload():
         #cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
 
         img = cv2.imdecode(np.fromfile(upload_path,dtype=np.uint8),cv2.IMREAD_COLOR)
+        result = recognize_text(img)
 
         print("img is " + str(img.size))
-        result['shape'] = str(img.shape)
-    return "image shape is "+result['shape']
+        #result['shape'] = str(img.shape)
+    return result
 
 
 @app.route('/', methods=['POST', 'GET'])
