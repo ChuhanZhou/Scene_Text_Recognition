@@ -4,7 +4,7 @@ config = {
   #common
   'output': 'out',
   'resnet_type':'50',#[50,101]
-  'rsn_score_threshold':0.65,
+  'rsn_score_threshold':0.775,
   'ocr_out_dim':-1,
   'input_dim': 3,
   'input_max_length':512,
@@ -13,6 +13,6 @@ config = {
   'detection_box_scaling':1, #decode
   'label_scaling':2, #encode
   'identification_list':'configs/identification_list.txt',
-  'wh_add':1/0.75*1.0,
+  'wh_add':1/0.75,
   'test_model': 'ckpt/ckpt_epoch_final.pth',
 }

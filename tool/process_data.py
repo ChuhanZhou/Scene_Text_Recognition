@@ -444,8 +444,17 @@ def get_points_of_box(center, box_shape, theta, padding=0, scaling=1):
     # shape [w,h] or [h,w]
     # center [x,y] or [y,x]
     # box_shape [w,h] or [h,w]
-    w = max(box_shape[0] + padding, 1)
-    h = max(box_shape[1] + padding, 1)
+    k1 = 1.0
+    k2 = 1.0
+    if min(box_shape[0],box_shape[1])<6 and min(box_shape[0],box_shape[1])>0:
+        if box_shape[0]>box_shape[1]:
+            k1 = min(max(box_shape[0],box_shape[1])/min(box_shape[0],box_shape[1])*(6-min(box_shape[0],box_shape[1]))/6,3)
+            k2 = min(max(box_shape[0],box_shape[1])/min(box_shape[0],box_shape[1])*(6-min(box_shape[0],box_shape[1]))/6,1.5)
+        else:
+            k1 = min(max(box_shape[0], box_shape[1]) / min(box_shape[0], box_shape[1])*(6-min(box_shape[0],box_shape[1]))/6, 1.5)
+            k2 = min(max(box_shape[0], box_shape[1]) / min(box_shape[0], box_shape[1])*(6-min(box_shape[0],box_shape[1]))/6, 3)
+    w = max(box_shape[0] + padding*k1, 1)
+    h = max(box_shape[1] + padding*k2, 1)
     center_x = center[0]
     center_y = center[1]
     length = math.sqrt((h / 2) ** 2 + (w / 2) ** 2)
