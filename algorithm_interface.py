@@ -86,6 +86,7 @@ def recognize_text(image):
         text_out += line_text
 
     cv2.imwrite("out/r.png", image_r)
+    cv2.imwrite("static/images/r.png", image_r)
 
     return text_out
 
