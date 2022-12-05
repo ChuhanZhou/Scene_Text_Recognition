@@ -8,6 +8,7 @@ import time
 from datetime import timedelta
 import numpy as np
 from algorithm_interface import recognize_text
+import datetime
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'bmp'])
 
@@ -18,8 +19,6 @@ def allowed_file(filename):
 
 app = Flask(__name__)
 
-result = {}
-
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
     result = "[Wrong request]"
@@ -28,10 +27,11 @@ def upload():
         print("f in python is "+ f)
 
         if not (f and allowed_file(f)):
-            return jsonify({"error": 1001, "msg": "check the format of picture, only for png、PNG、jpg、JPG、bmp"})
+            msg = "check the format of picture, only for png、PNG、jpg、JPG、bmp"
+            return msg
 
         basepath = os.path.dirname(__file__)
-        upload_path = os.path.join(basepath, 'static\images', f)
+        upload_path = os.path.join(basepath, 'static\images', 'origin')
         request.files.get('file').save(upload_path)
 
         print("path is " + str(upload_path))
@@ -40,7 +40,14 @@ def upload():
         #cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
 
         img = cv2.imdecode(np.fromfile(upload_path,dtype=np.uint8),cv2.IMREAD_COLOR)
-        result = recognize_text(img)
+        start = datetime.datetime.now()
+        result = dict()
+        result['text'] = recognize_text(img)
+        end = datetime.datetime.now()
+        print(end-start)
+        out_path = os.path.join(basepath, 'out','r.png')
+        result['outPath'] = str(out_path)
+
 
         print("img is " + str(img.size))
         #result['shape'] = str(img.shape)
