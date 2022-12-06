@@ -7,7 +7,7 @@ var bigImage = document.querySelector('#bigimg');
 var fileD;
 
 file.onchange = function () {
-        var fileData = this.files[0];//获取到一个FileList对象中的第一个文件( File 对象),是我们上传的文件
+        var fileData = this.files[0];//get the first file of the FileList
         var pettern = /^image/;
 
         //console.info(fileData.type)
@@ -17,11 +17,11 @@ file.onchange = function () {
             return;
         }
         var reader = new FileReader();
-        reader.readAsDataURL(fileData);//异步读取文件内容，结果用data:url的字符串形式表示
-        /*当读取操作成功完成时调用*/
+        reader.readAsDataURL(fileData);//read file content
+
         reader.onload = function (e) {
-            //console.log(e); //查看对象
-            console.log(this.result);//要的数据 这里的this指向FileReader（）对象的实例reader
+            //console.log(e);
+            console.log(this.result);
             image.setAttribute("src", this.result);
             image.style.display = "block";
             fileD = this.result;
@@ -58,7 +58,6 @@ $(document).ready(function() {
                             image.setAttribute("src", url+data.outPath);
                         }
 
-
                         image.style.display = "block";
                         btn.disabled = false;
                         btn.style.pointerEvents = "auto";
@@ -67,8 +66,6 @@ $(document).ready(function() {
                         btn.style.display = "block";
                         load.style.display = "none";
                         file.style.display = "block";
-
-                        //显示文本检测结果 文件相对路径./out/r.png
 
                 },
                 error: function ()
@@ -128,43 +125,43 @@ $(document).ready(function() {
 
 
         function imgShow(outerdiv, innerdiv, bigimg, _this) {
-            var src = _this.attr("src"); //获取当前点击的pimg元素中的src属性
-            bigImage.setAttribute("src", src); //设置#bigimg元素的src属性
+            var src = _this.attr("src"); //get the src attribution
+            bigImage.setAttribute("src", src);
 
-            /*获取当前点击图片的真实大小，并显示弹出层及大图*/
+
             $("<img/>").attr("src", src).load(function () {
-                var windowW = $(window).width(); //获取当前窗口宽度
-                var windowH = $(window).height(); //获取当前窗口高度
-                var realWidth = this.width; //获取图片真实宽度
-                var realHeight = this.height; //获取图片真实高度
+                var windowW = $(window).width(); //get window width
+                var windowH = $(window).height();
+                var realWidth = this.width; //get the real width of the image
+                var realHeight = this.height;
                 var imgWidth, imgHeight;
-                var scale = 0.8; //缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放
+                var scale = 0.8;
 
-                if (realHeight > windowH * scale) { //判断图片高度
-                    imgHeight = windowH * scale; //如大于窗口高度，图片高度进行缩放
-                    imgWidth = imgHeight / realHeight * realWidth; //等比例缩放宽度
-                    if (imgWidth > windowW * scale) { //如宽度扔大于窗口宽度
-                        imgWidth = windowW * scale; //再对宽度进行缩放
+                if (realHeight > windowH * scale) {
+                    imgHeight = windowH * scale;
+                    imgWidth = imgHeight / realHeight * realWidth;
+                    if (imgWidth > windowW * scale) {
+                        imgWidth = windowW * scale;
                     }
-                } else if (realWidth > windowW * scale) { //如图片高度合适，判断图片宽度
-                    imgWidth = windowW * scale; //如大于窗口宽度，图片宽度进行缩放
-                    imgHeight = imgWidth / realWidth * realHeight; //等比例缩放高度
-                } else { //如果图片真实高度和宽度都符合要求，高宽不变
+                } else if (realWidth > windowW * scale) {
+                    imgWidth = windowW * scale;
+                    imgHeight = imgWidth / realWidth * realHeight;
+                } else {
                     imgWidth = realWidth;
                     imgHeight = realHeight;
                 }
-                $(bigimg).css("width", imgWidth); //以最终的宽度对图片缩放
+                $(bigimg).css("width", imgWidth);
 
-                var w = (windowW - imgWidth) / 2; //计算图片与窗口左边距
-                var h = (windowH - imgHeight) / 2; //计算图片与窗口上边距
+                var w = (windowW - imgWidth) / 2;
+                var h = (windowH - imgHeight) / 2;
                 $(innerdiv).css({
                     "top": h,
                     "left": w
-                }); //设置#innerdiv的top和left属性
-                $(outerdiv).fadeIn("fast"); //淡入显示#outerdiv及.pimg
+                });
+                $(outerdiv).fadeIn("fast");
             });
 
-            $(outerdiv).click(function () { //再次点击淡出消失弹出层
+            $(outerdiv).click(function () {
                 $(this).fadeOut("fast");
             });
         }

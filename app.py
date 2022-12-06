@@ -51,20 +51,14 @@ def upload():
         end = datetime.datetime.now()
         print(end-start)
         out_path = os.path.join(basepath, 'out', 'r.png')
-        # b64encode是编码，b64decode是解码
+        # b64encode，b64decode
         img = cv2.imdecode(np.fromfile(out_path,dtype=np.uint8),cv2.IMREAD_COLOR)
         img_data = cv2.imencode('.png', img)[1].tobytes()
-        # 将图片编码成流数据，放到内存缓存中，然后转化成string格式
+        # The image is encoded into stream data, placed in the memory cache, and then converted to string format
         base64_data = base64.b64encode(img_data)
         img_base64 = str(base64_data, encoding='utf-8')
         # base64.b64decode(base64data)
         result['outPath'] = img_base64
-
-        #result['outPath'] = str(out_path)
-
-
-        print("img is " + str(img.size))
-        #result['shape'] = str(img.shape)
     return result
 
 
