@@ -25,11 +25,7 @@ file.onchange = function () {
             image.setAttribute("src", this.result);
             image.style.display = "block";
             fileD = this.result;
-
-
         }
-
-
     }
 
 $(document).ready(function() {
@@ -55,7 +51,13 @@ $(document).ready(function() {
                     success: function (data) {
                         console.log("post successfully");
                         text.value = data.text;
-                        image.setAttribute("src", data.outPath);
+                        if (data.outPath!=="" && data.outPath !=null )
+                        {
+                            //var strBase64 = Base64.decode(data.outPath);
+                            url = "data:image/png;base64,";
+                            image.setAttribute("src", url+data.outPath);
+                        }
+
 
                         image.style.display = "block";
                         btn.disabled = false;
@@ -67,6 +69,7 @@ $(document).ready(function() {
                         file.style.display = "block";
 
                         //显示文本检测结果 文件相对路径./out/r.png
+
                 },
                 error: function ()
                 {
