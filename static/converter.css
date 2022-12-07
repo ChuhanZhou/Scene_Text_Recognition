@@ -44,10 +44,13 @@ html, body{
     text-align: center;
     display: none;
 }
-
+#fileForm{
+    padding-left: 10%;
+    width: 80%;
+    text-align: left;
+}
 #file{
     margin-top: 10px;
-
 }
 
 #uploadArea button{
