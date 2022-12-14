@@ -42,7 +42,7 @@ $(document).ready(function() {
                 file.style.display = "none";
                 var formFile = new FormData($('#fileForm')[0])
                 console.log("formFile is "+formFile)
-                setTimeout(alertFunc, 1000*60*3);      　//三秒之后调用alertFunc函数
+                var t = setTimeout(alertFunc, 1000*60*3);      　//三秒之后调用alertFunc函数
                 function alertFunc() {
                     alert("Please wait for the result");
                 }
@@ -70,7 +70,7 @@ $(document).ready(function() {
                         btn.style.display = "block";
                         load.style.display = "none";
                         file.style.display = "block";
-                        clearTimeout();
+                        clearTimeout(t);
 
                 },
                 error: function ()
