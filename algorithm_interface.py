@@ -31,7 +31,7 @@ def recognize_text(image):
 
     img = cv2.copyMakeBorder(image, 0, add_h, 0, add_w, cv2.BORDER_CONSTANT, value=(0, 0, 0))
     data = process_data.img_to_data(img).unsqueeze(0)
-    out = model(data)
+    out = model(data.to(cfg['device']))
 
     [ldn_decode, rsn_decode, ocr_decode] = process_data.decode_data_label(out)
     points_list, [dim_0_np, dim_1_np, result] = ldn_decode
