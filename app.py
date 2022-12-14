@@ -24,11 +24,12 @@ app = Flask(__name__)
 
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
-    result = "[Wrong request]"
+    result = dict()
+    result['text'] = "[Wrong request]"
     if request.method == 'POST':
         f = request.files.get('file').filename
         print("f in python is "+ f)
-        result = dict()
+
 
         if not (f and allowed_file(f)):
             msg = "check the format of picture, only for png、PNG、jpg、JPEG、bmp"
@@ -40,7 +41,7 @@ def upload():
         request.files.get('file').save(upload_path)
 
         print("path is " + str(upload_path))
-        #becuase the file path contain Chinses characters so that it should be decoded
+        #becFORuase the file path contain Chinses characters so that it should be decoded
         #img = cv2.imread(upload_path)
         #cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
 
